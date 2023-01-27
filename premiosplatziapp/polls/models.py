@@ -4,7 +4,7 @@ from django.db import models
 # Model for questions table in the db
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", auto_now_add=True)
 
     def __str__(self):
         return self.question_text
