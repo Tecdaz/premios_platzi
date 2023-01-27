@@ -386,3 +386,10 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/django,python,venv,pycharm
+/.idea/vcs.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/premios_platzi.iml
+/.idea/.gitignore
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
