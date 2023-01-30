@@ -6,7 +6,7 @@ from .models import Question
 
 def index(request):
     # List of Questions from db
-    latest_question_list = list(Question.objects.all())
+    latest_question_list = Question.objects.all()
     context = {
         "latest_question_list": latest_question_list
     }
