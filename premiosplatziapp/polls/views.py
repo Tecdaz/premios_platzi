@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
@@ -32,8 +32,16 @@ def results(request, question_id):
 
 def vote(request, question_id):
     question = Question.objects.get(pk=question_id)
-    selected_choice = question.choice_set.get(pk=request.POST["choice"])
-    selected_choice.votes += 1
-    selected_choice.save()
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST["choice"])
+    except KeyError:
+        context = {
+            "question": question,
+            "error_message": "No selecciono ningun mensage"
+        }
+        return render(request, 'polls/detail.html', context)
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
 
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
