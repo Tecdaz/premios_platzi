@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
@@ -21,31 +21,6 @@ class DetailView(generic.DetailView):
 
 class ResultView(DetailView):
     template_name = 'polls/results.html'
-
-
-def index(request):
-    # List of Questions from db
-    latest_question_list = Question.objects.all()
-    context = {
-        "latest_question_list": latest_question_list
-    }
-    return render(request, 'polls/index.html', context=context)
-
-
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id, )
-    context = {
-        'question': question
-    }
-    return render(request, 'polls/detail.html', context=context)
-
-
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    context = {
-        'question': question
-    }
-    return render(request, 'polls/results.html', context)
 
 
 def vote(request, question_id):
