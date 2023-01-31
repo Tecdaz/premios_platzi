@@ -1,3 +1,11 @@
 from django.test import TestCase
+from django.urls import reverse
 
-# Create your tests here.
+
+class QuestionIndexViewTests(TestCase):
+    def test_no_questions(self):
+        """If no question exists, an message is displayed"""
+        response = self.client.get(reverse("polls:index"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No polls are available")
+        self.assertQuerysetEqual(response.context["latest_question_list"], [])
