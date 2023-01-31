@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -12,7 +13,9 @@ class IndexView(generic.ListView):
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
+        questions = Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
+        questions = questions.alias(entries=Count("choice")).filter(entries__gt=1)
+        return questions
 
 
 class DetailView(generic.DetailView):
